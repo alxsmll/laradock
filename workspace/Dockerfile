@@ -1303,7 +1303,17 @@ RUN if [ ${INSTALL_GIT_PROMPT} = true ]; then \
 # Check PHP version:
 ###########################################################################
 
-RUN set -xe; php -v | head -n 1 | grep -q "PHP ${LARADOCK_PHP_VERSION}."
+RUN set -xe; php -v | head -n 1 | grep -q "PHP ${LARADOCK_PHP_VERSION}." \
+;fi
+
+#####################################
+# php codesniffer
+#####################################
+
+RUN composer global require squizlabs/php_codesniffer \
+    && ln -s ~/.composer/vendor/squizlabs/php_codesniffer/bin/phpcs /usr/local/bin/phpcs \
+    && ln -s ~/.composer/vendor/squizlabs/php_codesniffer/bin/phpcbf /usr/local/bin/phpcbf \
+;fi
 
 ###########################################################################
 # Oh My ZSH!
